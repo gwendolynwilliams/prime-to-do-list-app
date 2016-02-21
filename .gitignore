@@ -3,6 +3,9 @@ logs
 *.log
 npm-debug.log*
 
+# IDE specific directories
+.idea
+
 # Runtime data
 pids
 *.pid
@@ -28,6 +31,9 @@ node_modules
 
 # Optional npm cache directory
 .npm
+
+# Mac OS files
+.DS_Store
 
 # Optional REPL history
 .node_repl_history
