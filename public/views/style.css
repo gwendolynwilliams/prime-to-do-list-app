@@ -14,6 +14,15 @@ h1 {
     text-align: center;
 }
 
+h2 {
+    color: indianred;
+    font-size: 24px;
+    font-family: 'Lato', open-sans, sans-serif;
+    font-weight: 200;
+    margin: 0 auto 0 auto;
+    text-align: center;
+}
+
 p {
     background-color: #ffffff;
     padding: 10px;

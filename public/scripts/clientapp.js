@@ -98,22 +98,54 @@ function completeTask() {
 function deleteTask() {
 
     var taskId = $(this).attr('id');
-    console.log('taskId: ' + taskId);
-    $(this).parent().remove();
 
-    $.ajax({
-        type: 'POST',
-        url: '/deleteTask',
-        data: {id: taskId},
-        success: function(data) {
-            if(data) {
-                // everything went ok
-                console.log('id removed: ' + data);
+    console.log('delete taskId: ' + taskId);
 
-            } else {
-                console.log('error');
+    swal({
+        title: "Are you sure?",
+        text: "Are you sure that you want to delete this photo?",
+        type: "warning",
+        showCancelButton: true,
+        closeOnConfirm: true,
+        closeOnCancel: true,
+        confirmButtonText: "Yes, delete it!",
+        confirmButtonColor: "#ec6c62"
+    }, function() {
+
+        $.ajax({
+            type: 'POST',
+            url: '/deleteTask',
+            data: {id: taskId},
+            success: function(data) {
+                if(data) {
+                    // everything went ok
+                    console.log('id removed: ' + data);
+                    $('#tasks').children().find('#' + taskId).parent().remove();
+
+                } else {
+                    console.log('error');
+                }
             }
-        }
     });
-
+    })
 }
+
+
+
+
+
+    //$.ajax({
+    //    type: 'POST',
+    //    url: '/deleteTask',
+    //    data: {id: taskId},
+    //    success: function(data) {
+    //        if(data) {
+    //            // everything went ok
+    //            console.log('id removed: ' + data);
+    //
+    //        } else {
+    //            console.log('error');
+    //        }
+    //    }
+    //});
+
