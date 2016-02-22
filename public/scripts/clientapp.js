@@ -3,6 +3,7 @@ $(document).ready(function() {
     $('body').on('load', showAllTasks());
     $('#tasks').on('click', '.button-complete', completeTask);
     $('#tasks').on('click', '.button-delete', deleteTask);
+    $('#completed-tasks').on('click', '.button-delete', deleteTask);
 });
 
 function postTask() {
@@ -40,7 +41,6 @@ function displayTask() {
         url: '/tasks',
         success: function(data) {
             var displayTask = data[data.length-1].task;
-            var completed = data[data.length-1].completed;
             var id = data[data.length-1].id;
 
             $('#tasks').prepend('<p id="' + id + '"><button class="button-complete" id="' + id + '" /></button>'
@@ -59,7 +59,6 @@ function showAllTasks() {
 
             data.forEach(function(task, i) {
                 var displayTask = task.task;
-                var completed = task.completed;
                 var id = task.id;
 
                 $('#tasks').prepend('<p id="' + id + '"><button class="button-complete" id="' + id + '" /></button>'
@@ -74,7 +73,18 @@ function showAllTasks() {
 function completeTask() {
 
     var taskId = $(this).attr('id');
+
     console.log('taskId: ' + taskId);
+
+    var taskText = $('#tasks').find('#' + taskId).text();
+    console.log('task text: ' + taskText);
+
+    $(this).parent().remove();
+
+    $('#completed-tasks').append('<p id="' + taskId + '"><button class="button-complete" id="' + taskId + '" /></button>' + taskText + '<button class="button-delete" id="' + taskId + '"></button></p>');
+
+    $('#completed-tasks').find('#' + taskId).toggleClass('strikeout');
+    $('#completed-tasks').children().find('#' + taskId).first().toggleClass('checked');
 
     $.ajax({
         type: 'POST',
@@ -83,10 +93,6 @@ function completeTask() {
         success: function(data) {
             if(data) {
                 console.log('from server:', data);
-                $('#tasks').find('#' + data).toggleClass('strikeout');
-                $('#tasks').children().find('#' + data).first().toggleClass('checked');
-                console.log('id: ' + data);
-
             } else {
                 console.log('error');
             }
@@ -98,12 +104,12 @@ function completeTask() {
 function deleteTask() {
 
     var taskId = $(this).attr('id');
-
     console.log('delete taskId: ' + taskId);
 
+    // this is the stylized alert box - SweetAlert
     swal({
         title: "Are you sure?",
-        text: "Are you sure that you want to delete this photo?",
+        text: "Are you sure that you want to delete this task?",
         type: "warning",
         showCancelButton: true,
         closeOnConfirm: true,
@@ -118,9 +124,9 @@ function deleteTask() {
             data: {id: taskId},
             success: function(data) {
                 if(data) {
-                    // everything went ok
                     console.log('id removed: ' + data);
                     $('#tasks').children().find('#' + taskId).parent().remove();
+                    $('#completed-tasks').children().find('#' + taskId).parent().remove();
 
                 } else {
                     console.log('error');
@@ -129,23 +135,3 @@ function deleteTask() {
     });
     })
 }
-
-
-
-
-
-    //$.ajax({
-    //    type: 'POST',
-    //    url: '/deleteTask',
-    //    data: {id: taskId},
-    //    success: function(data) {
-    //        if(data) {
-    //            // everything went ok
-    //            console.log('id removed: ' + data);
-    //
-    //        } else {
-    //            console.log('error');
-    //        }
-    //    }
-    //});
-
