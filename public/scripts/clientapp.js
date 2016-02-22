@@ -98,7 +98,7 @@ function completeTask() {
 
     $.ajax({
         type: 'POST',
-        url: '/completeTask',
+        url: '/tasks/completeTask',
         data: {id: taskId},
         success: function(data) {
             if(data) {
@@ -130,7 +130,7 @@ function deleteTask() {
 
         $.ajax({
             type: 'POST',
-            url: '/deleteTask',
+            url: '/tasks/deleteTask',
             data: {id: taskId},
             success: function(data) {
                 if(data) {

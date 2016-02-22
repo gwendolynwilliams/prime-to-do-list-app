@@ -10,7 +10,8 @@ if(process.env.DATABASE_URL != undefined) {
     connectionString = 'postgres://localhost:5432/Gwen';
 }
 
-    router.post('/tasks', function(req, res) {
+    router.post('/', function(req, res) {
+        console.log('hi!');
 
         var addTask = {
             task: req.body.task
@@ -32,7 +33,7 @@ if(process.env.DATABASE_URL != undefined) {
 
     });
 
-    router.get('/tasks', function(req, res) {
+    router.get('/', function(req, res) {
 
         var results = [];
 
