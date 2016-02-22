@@ -60,9 +60,19 @@ function showAllTasks() {
             data.forEach(function(task, i) {
                 var displayTask = task.task;
                 var id = task.id;
+                var completed = task.completed;
 
-                $('#tasks').prepend('<p id="' + id + '"><button class="button-complete" id="' + id + '" /></button>'
+                if(completed == false) {
+
+                    $('#tasks').prepend('<p id="' + id + '"><button class="button-complete" id="' + id + '" /></button>'
                      + displayTask + '<button class="button-delete" id="' + id + '"></button></p>');
+
+                } else {
+                    $('#completed-tasks').append('<p id="' + id + '"><button class="button-complete" id="' + id + '" /></button>'
+                        + displayTask + '<button class="button-delete" id="' + id + '"></button></p>');
+                    $('#completed-tasks').find('#' + id).toggleClass('strikeout');
+                    $('#completed-tasks').children().find('#' + id).first().toggleClass('checked');
+                }
 
             })
 

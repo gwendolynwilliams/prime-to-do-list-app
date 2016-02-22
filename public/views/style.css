@@ -68,7 +68,7 @@ p {
 }
 
 .button-complete {
-    background:url("../images/circle.jpg") no-repeat;
+    background:url("../images/circle.png") no-repeat;
     cursor: pointer;
     width: 20px;
     height: 20px;
@@ -86,7 +86,7 @@ p {
 }
 
 .checked {
-    background:url("../images/circle_checked.jpg") no-repeat;
+    background:url("../images/circle_checked.png") no-repeat;
 }
 
 .strikeout {
