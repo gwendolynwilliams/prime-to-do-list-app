@@ -1,0 +1,6 @@
+CREATE TABLE tasks
+(
+  id integer SERIAL PRIMARY KEY,
+  task varchar(256) NOT NULL,
+  completed boolean
+)
